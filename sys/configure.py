@@ -74,7 +74,7 @@ def gen_lib(names: dict[str, list[str]]):
     #![allow(non_upper_case_globals)]
     #![allow(improper_ctypes)]
     #![allow(non_snake_case)]
-    
+
     """
     )
 
@@ -111,8 +111,6 @@ def gen_build(names):
 def target_os(platform):
     MAP = {
         "MacOSX": "macos",
-        "iPhoneOS": "ios",
-        "iPhoneSimulator": "ios",
     }
     return MAP[platform]
 
@@ -144,9 +142,6 @@ def main(sdk_names):
         with open(f"test_script.{platform}.sh", "w") as f:
             target = ""
             command = "test"
-            if platform == "iPhoneOS":
-                target = "--target aarch64-apple-ios"
-                command = "build"
             f.write(
                 dedent(
                     f"""
@@ -163,7 +158,7 @@ def main(sdk_names):
 
 
 if __name__ == "__main__":
-    main(["MacOSX", "iPhoneOS"])
+    main(["MacOSX"])
     subprocess.run(["cargo", "fmt"])
 
 
